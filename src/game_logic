@@ -1,5 +1,36 @@
+from tree_models import Node
+
+def learn_new_item(leaf_node):
+    """
+    Transforma um nó folha (palpite errado) em um nó de pergunta 
+    para aprender um novo objeto/animal.
+    """
+    old_answer = leaf_node.answer
+    print(f"\nPuxa, eu pensei que era um(a) {old_answer}.")
+    
+    # 1. Coleta a informação correta
+    new_answer = input("Em que você estava pensando? ").strip()
+    new_question = input(f"Que pergunta diferencia um(a) {new_answer} de um(a) {old_answer}? ")
+    
+    # 2. Define qual o caminho da resposta correta
+    hint = input(f"Para '{new_answer}', a resposta para '{new_question}' é 's' ou 'n'? ").strip().lower()
+
+    # 3. Transforma o nó atual (que era folha) em um nó de pergunta
+    leaf_node.answer = None
+    leaf_node.question = new_question
+    
+    # 4. Cria os novos ramos
+    if hint == 's':
+        leaf_node.yes = Node(answer=new_answer)
+        leaf_node.no = Node(answer=old_answer)
+    else:
+        leaf_node.yes = Node(answer=old_answer)
+        leaf_node.no = Node(answer=new_answer)
+        
+    print(f"Obrigado! Agora eu aprendi sobre o(a) {new_answer}.")
+
 def play_game(root):
-    """Executa a lógica de adivinhação interagindo com o usuário."""
+    """Executa a lógica de adivinhação com opção de aprendizado."""
     print("\n" + "="*30)
     print(" JOGO DE ADIVINHAÇÃO (AKINATOR)")
     print("="*30)
@@ -16,10 +47,9 @@ def play_game(root):
 
     print(f"\n>> O sistema acha que é: {current.answer}!")
     
-    # Extensão Opcional: Feedback
     correct = input("Eu acertei? (s/n): ").strip().lower()
     if correct == 's':
-        print("Ótimo! Eu sempre acerto 😎")
+        print("Ótimo! Eu sou demais. 😎")
     else:
-        print("Puxa... me ensine essa!")
-      
+        #Extensão Opcional
+        learn_new_item(current)
