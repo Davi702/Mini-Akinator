@@ -1,0 +1,27 @@
+class Node:
+    def __init__(self, question=None, answer=None):
+        self.question = question  # Texto da pergunta 
+        self.answer = answer      # Nome do animal/objeto 
+        self.yes = None           # Filho para resposta "Sim"
+        self.no = None            # Filho para resposta "Não" 
+
+    def is_leaf(self):
+        """Retorna True se o nó for uma resposta final (folha)."""
+        return self.answer is not None
+
+def build_initial_tree():
+    
+    # Raiz (Nível 0)
+    root = Node(question="Vive na água?")
+
+    # Subárvore Esquerda (Nível 1 - Sim)
+    root.yes = Node(question="É mamífero?")
+    root.yes.yes = Node(answer="Golfinho") # Nível 2 (Folha)
+    root.yes.no = Node(answer="Tubarão")   # Nível 2 (Folha)
+
+    # Subárvore Direita (Nível 1 - Não)
+    root.no = Node(question="Tem asas?")
+    root.no.yes = Node(answer="Águia")     # Nível 2 (Folha)
+    root.no.no = Node(answer="Cachorro")   # Nível 2 (Folha)
+
+    return root
