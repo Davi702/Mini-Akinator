@@ -1,0 +1,25 @@
+def play_game(root):
+    """Executa a lógica de adivinhação interagindo com o usuário."""
+    print("\n" + "="*30)
+    print(" JOGO DE ADIVINHAÇÃO (AKINATOR)")
+    print("="*30)
+    
+    current = root
+    while not current.is_leaf():
+        choice = input(f"{current.question} (s/n): ").strip().lower()
+        if choice == 's':
+            current = current.yes
+        elif choice == 'n':
+            current = current.no
+        else:
+            print("Resposta inválida! Use 's' ou 'n'.")
+
+    print(f"\n>> O sistema acha que é: {current.answer}!")
+    
+    # Extensão Opcional: Feedback
+    correct = input("Eu acertei? (s/n): ").strip().lower()
+    if correct == 's':
+        print("Ótimo! Eu sempre acerto 😎")
+    else:
+        print("Puxa... me ensine essa!")
+      
