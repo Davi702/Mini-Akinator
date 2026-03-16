@@ -1,0 +1,37 @@
+from collections import deque
+
+def dfs_traversal(node, path=None):
+    """
+    DFS - Depth-First Search (Busca em Profundidade)
+    Percorre um caminho completo até a folha antes de retroceder.
+    """
+    if node is None:
+        return
+
+    # Visita o nó atual
+    info = f"[Pergunta: {node.question}]" if node.question else f"[Resposta: {node.answer}]"
+    print(f"DFS visitando: {info}")
+
+    # Segue para os filhos (Sim depois Não)
+    dfs_traversal(node.yes)
+    dfs_traversal(node.no)
+
+def bfs_traversal(root):
+    """
+    BFS - Breadth-First Search (Busca em Largura)
+    Percorre a árvore nível por nível.
+    """
+    if not root:
+        return
+
+    queue = deque([root])
+    while queue:
+        node = queue.popleft()
+        
+        info = f"[Pergunta: {node.question}]" if node.question else f"[Resposta: {node.answer}]"
+        print(f"BFS visitando: {info}")
+
+        if node.yes:
+            queue.append(node.yes)
+        if node.no:
+            queue.append(node.no)
