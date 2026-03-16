@@ -1,0 +1,28 @@
+from tree_models import build_initial_tree
+from algorithms import dfs_traversal, bfs_traversal
+from game_logic import play_game
+
+def main():
+    akinator_tree = build_initial_tree()
+
+    while True:
+        print("\nMENU:")
+        print("1. Iniciar Jogo")
+        print("2. Ver Árvore (DFS - Estrutura Atual)")
+        print("3. Sair")
+        
+        opcao = input("Escolha uma opção: ")
+
+        if opcao == '1':
+            play_game(akinator_tree)
+        elif opcao == '2':
+            print("\n--- ESTRUTURA ATUAL DA ÁRVORE (DFS) ---")
+            dfs_traversal(akinator_tree)
+        elif opcao == '3':
+            print("Saindo...")
+            break
+        else:
+            print("Opção inválida.")
+
+if __name__ == "__main__":
+    main()
